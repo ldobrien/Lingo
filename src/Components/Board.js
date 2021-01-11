@@ -25,7 +25,7 @@ class Board extends Component {
                         <p className="p">{rowGuess.guess[col]}</p>
                         </Col>)
                 } else {
-                    rowArr.push(<Col className="cell"><p className="white-text">-</p></Col>)
+                    rowArr.push(<Col className="cell" key={rowArr.length}><p className="white-text">-</p></Col>)
                 }
                 
             }
