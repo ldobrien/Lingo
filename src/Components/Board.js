@@ -29,7 +29,7 @@ class Board extends Component {
                 }
                 
             }
-            board.push(<Row className="row">{rowArr}</Row>)
+            board.push(<Row className="row" key={board.length}>{rowArr}</Row>)
         }
         return board
     }

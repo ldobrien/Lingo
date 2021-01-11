@@ -26,7 +26,12 @@ class Main extends Component {
           .then(json => {
             var item = json[Math.floor(Math.random() * json.length)];
             this.setState({
-                answer: item
+                answer: item,
+                guesses: [],
+                guess: "",
+                length: 5,
+                attempts: 5,
+                result: ""
             })
           });
     }
@@ -88,33 +93,31 @@ class Main extends Component {
     }
 
     playAgain = () => {
-        this.setState({
-            guesses: [],
-            guess: "",
-            length: 5,
-            attempts: 5,
-            result: ""
-        })
         this.getData()
     }
 
     render() {
         let replay = <div></div>
+        let form = <div></div>
         if(this.state.result !== ""){
             replay = <button onClick={this.playAgain}>Play Again</button>
+        } else {
+            form = (
+                <form className="center"  onSubmit={this.addGuess}>
+                        <label>
+                            Guess:
+                            <input type="text" guess="guess" onChange={this.handleChange} minLength={this.state.length} maxLength={this.state.length}/>
+                        </label>
+                        <input type="submit" value="Submit"/>
+                </form>
+            )
         }
         return(
             <div>
                 <p className="inputText">{this.state.answer[0]}_ _ _ _</p>
                 
                 <Board answer={this.state.answer} guesses={this.state.guesses}/>
-                <form className="center"  onSubmit={this.addGuess}>
-                    <label>
-                        Guess:
-                        <input type="text" guess="guess" onChange={this.handleChange} minLength={this.state.length} maxLength={this.state.length}/>
-                    </label>
-                    <input type="submit" value="Submit"/>
-                </form>
+                {form}
                 <p className={this.state.result === "You Win!" ? "green-text" : "red-text"}>{this.state.result}</p>
                 {replay}
             </div>
