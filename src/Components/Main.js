@@ -82,7 +82,7 @@ class Main extends Component {
     handleLoss = () => {
         this.setState({
             ...this.state,
-            result: "You Lose"
+            result: "You Lose, the word was " + this.state.answer
         })
     }
 
