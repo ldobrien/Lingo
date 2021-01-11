@@ -1,0 +1,38 @@
+.center{
+    margin: auto;
+    width: 25%;
+    height: 25%;
+    border: 3px solid black;
+    padding: 10px;
+}
+.row .cell{
+    border: 1px solid grey;
+    width: 19%;
+    height: 20%;
+    font-size: 25px;
+    padding: 0px;
+}
+
+.yellowCircle{
+    background-color: yellow;
+    border-radius: 50%;
+    height: 100%;
+}
+
+.greenSquare{
+    background-color: greenyellow;
+    height: 100%;
+}
+
+.row{
+    height: 20%;
+    margin-bottom: 3px;
+}
+
+.p{
+    min-height: 37px;
+}
+
+.inputText{
+    font-size: 25px;
+}
