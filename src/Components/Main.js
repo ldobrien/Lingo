@@ -42,16 +42,26 @@ class Main extends Component {
 
     addGuess = (e) => {
         e.preventDefault()
+        let answerAlt = this.state.answer
         let guess = this.state.guess.toLowerCase()
+        let guessAlt = guess
         let correctPosition = []
         let correctLetter = []
+
         for(var idx = 0; idx < this.state.length; idx++){
-            if(this.state.answer.includes(guess[idx])){
-                if(guess[idx] === this.state.answer[idx]){
-                    correctPosition.push(idx)
-                } else {
-                    correctLetter.push(idx)
-                }
+            if(this.state.answer[idx] === guess[idx]){
+                correctPosition.push(idx)
+                guessAlt = guessAlt.substr(0, idx) + "-" + guessAlt.substr(idx + 1)
+                answerAlt = answerAlt.substr(0, idx) + "-" + answerAlt.substr(idx + 1)
+            }
+        }
+        
+        for(var idx = 0; idx < this.state.length; idx++){
+            if(answerAlt.includes(guessAlt[idx]) && guessAlt[idx] !== "-"){
+                correctLetter.push(idx)
+                let answerIdx = answerAlt.indexOf(guessAlt[idx])
+                guessAlt = guessAlt.substr(0, idx) + "-" + guessAlt.substr(idx + 1)
+                answerAlt = answerAlt.substr(0, answerIdx) + "-" + answerAlt.substr(answerIdx + 1)
             }
         }
         let guessObj = {
