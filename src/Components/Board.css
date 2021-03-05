@@ -36,3 +36,19 @@
 .inputText{
     font-size: 25px;
 }
+
+.left{
+    width: 30%;
+    padding-left: 10%;
+    height: 25px;
+    float: left;
+    text-align: left;
+}
+.boardDiv{
+    /* margin-left: 20%; */
+    float:left;
+    width: 110%;
+}
+.bold{
+    font-weight: bold;
+}

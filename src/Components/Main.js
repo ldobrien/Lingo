@@ -134,11 +134,21 @@ class Main extends Component {
         }
         return(
             <div>
-                {topString}
-                <Board answer={this.state.answer} guesses={this.state.guesses}/>
-                {form}
-                <p className={this.state.result === "You Win!" ? "green-text" : "red-text"}>{this.state.result}</p>
-                {replay}
+                <div className="left">
+                    <p className="bold">How To Play </p>
+                    <p>You have 5 attempts to guess the word</p>
+                    <p>Every time you enter a guess, any correct letters will be highlighted in yellow </p>
+                    <p>A yellow circle means that the letter belongs in the word, but it is not in the correct spot </p>
+                    <p>A yellow square means that the letter is correct and is in the correct spot </p>
+                    <p>If you have guessed the correct word, the entire word will be highlighted in green </p>
+                </div>
+                <div className="boardDiv">
+                    {topString}
+                    <Board answer={this.state.answer} guesses={this.state.guesses}/>
+                    {form}
+                    <p className={this.state.result === "You Win!" ? "green-text" : "red-text"}>{this.state.result}</p>
+                    {replay}
+                </div>
             </div>
         )
     }
