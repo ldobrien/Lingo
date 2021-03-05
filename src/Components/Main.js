@@ -9,7 +9,8 @@ class Main extends Component {
         guess: "",
         length: 5,
         attempts: 5,
-        result: ""
+        result: "",
+        topString: ["_ ", "_ ", "_ ", "_ ", "_"],
     }
 
     getData = () => {
@@ -25,13 +26,15 @@ class Main extends Component {
           })
           .then(json => {
             var item = json[Math.floor(Math.random() * json.length)];
+            let topString = [item[0], "_ ", "_ ", "_ ", "_"]
             this.setState({
                 answer: item,
                 guesses: [],
                 guess: "",
                 length: 5,
                 attempts: 5,
-                result: ""
+                result: "",
+                topString
             })
           });
     }
@@ -41,9 +44,11 @@ class Main extends Component {
     }
 
     addGuess = (e) => {
+        // TODO: Need to send the guess to the back end so I don't need to send the json data to the front for comparison
         e.preventDefault()
         let answerAlt = this.state.answer
         let guess = this.state.guess.toLowerCase()
+        var topString = [...this.state.topString]
         let guessAlt = guess
         let correctPosition = []
         let correctLetter = []
@@ -53,6 +58,7 @@ class Main extends Component {
                 correctPosition.push(idx)
                 guessAlt = guessAlt.substr(0, idx) + "-" + guessAlt.substr(idx + 1)
                 answerAlt = answerAlt.substr(0, idx) + "-" + answerAlt.substr(idx + 1)
+                topString[idx] =  guess[idx] + " "
             }
         }
         
@@ -72,7 +78,8 @@ class Main extends Component {
         let newGuesses = [...this.state.guesses, guessObj]
         this.setState({
             guesses: newGuesses,
-            guess: ""
+            guess: "",
+            topString
         }, () => {
             if(this.state.length === correctPosition.length){
                 this.handleWin()
@@ -109,6 +116,9 @@ class Main extends Component {
     render() {
         let replay = <div></div>
         let form = <div></div>
+        let topStringArr = this.state.topString
+        let topString = <p className="inputText">{topStringArr}</p>
+
         if(this.state.result !== ""){
             replay = <button onClick={this.playAgain}>Play Again</button>
         } else {
@@ -116,7 +126,7 @@ class Main extends Component {
                 <form className="center"  onSubmit={this.addGuess}>
                         <label>
                             Guess:
-                            <input type="text" guess="guess" onChange={this.handleChange} minLength={this.state.length} maxLength={this.state.length}/>
+                            <input type="text" guess="guess" value={this.state.guess} onChange={this.handleChange} minLength={this.state.length} maxLength={this.state.length}/>
                         </label>
                         <input type="submit" value="Submit"/>
                 </form>
@@ -124,8 +134,7 @@ class Main extends Component {
         }
         return(
             <div>
-                <p className="inputText">{this.state.answer[0]}_ _ _ _</p>
-                
+                {topString}
                 <Board answer={this.state.answer} guesses={this.state.guesses}/>
                 {form}
                 <p className={this.state.result === "You Win!" ? "green-text" : "red-text"}>{this.state.result}</p>
